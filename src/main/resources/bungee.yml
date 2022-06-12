@@ -1,0 +1,4 @@
+name: FactionsBungee
+version: ${project.version}
+main: com.itndev.factions.FactionsBungee
+description: Bungee Extention for Factions 
