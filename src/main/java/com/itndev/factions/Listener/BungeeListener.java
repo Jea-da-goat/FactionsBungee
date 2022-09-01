@@ -43,9 +43,9 @@ public class BungeeListener implements Listener {
     private BaseComponent getMessage(ProxiedPlayer p, Boolean isjoin) {
         BaseComponent comp = new TextComponent();
         if(isjoin) {
-            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&a&l+ &r&8[&7" + p.getName()) + "&r&8] ");
+            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&r&8[&a&l+&r&8] &7" + p.getName()));
         } else {
-            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&c&l- &r&8[&7" + p.getName()) + "&r&8] ");
+            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&r&8[&c&l-&r&8] &7" + p.getName()));
         }
         return comp;
     }
