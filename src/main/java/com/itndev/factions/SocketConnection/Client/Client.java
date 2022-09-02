@@ -85,7 +85,7 @@ public class Client {
                         Thread.sleep(100);
                     }
                     Thread.sleep(100);
-                } catch (IOException | InterruptedException e) {
+                } catch (Exception e) {
 
                     this.closeAll();
                     System.out.println("e -< error Report");
@@ -93,7 +93,7 @@ public class Client {
                 }
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -106,13 +106,13 @@ public class Client {
         try {
             output.writeObject(new HashMap<String, String>());
             output.flush();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             System.out.println("ex -< error Report");
             ex.printStackTrace();
         }
         try {
             clientSocket.close();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             System.out.println("ex -< error Report");
             ex.printStackTrace();
         }
