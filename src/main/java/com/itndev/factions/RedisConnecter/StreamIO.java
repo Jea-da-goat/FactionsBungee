@@ -29,13 +29,13 @@ public class StreamIO {
 
     private void StreamWriter_OUTPUT() {
         String compressedhashmap;
-        synchronized (RedisStorage.TempCommandQueue) {
+        /*synchronized (RedisStorage.TempCommandQueue) {
             compressedhashmap = Read.HashMap2String(RedisStorage.TempCommandQueue);
             RedisStorage.TempCommandQueue.clear();
         }
         if(compressedhashmap != null) {
             Map<String, String> body = Collections.singletonMap(StaticVal.getCommand(), compressedhashmap);
             Redis.getRedisCommands().xadd(get_Stream_BUNGEE_LINE(), body);
-        }
+        }*/
     }
 }

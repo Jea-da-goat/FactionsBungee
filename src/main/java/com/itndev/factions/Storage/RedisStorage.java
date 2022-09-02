@@ -2,20 +2,18 @@ package com.itndev.factions.Storage;
 
 import com.itndev.factions.Utils.StaticVal;
 
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RedisStorage {
-    public static final ConcurrentHashMap<String, String> TempCommandQueue = new ConcurrentHashMap<>();
+    public static final HashMap<Integer, String> TempCommandQueue = new HashMap<>();
 
     public static void AddCommandToQueue(String command) {
         synchronized (TempCommandQueue) {
-            if(!TempCommandQueue.containsKey(StaticVal.getMaxAmount())) {
-                TempCommandQueue.put(StaticVal.getMaxAmount(), "1");
-                TempCommandQueue.put("1", command);
+            if(TempCommandQueue.isEmpty()) {
+                TempCommandQueue.put(1, command);
             } else {
-                int num = Integer.parseInt(TempCommandQueue.get(StaticVal.getMaxAmount()));
-                TempCommandQueue.put(StaticVal.getMaxAmount(), String.valueOf(num + 1));
-                TempCommandQueue.put(String.valueOf(num + 1), command);
+                TempCommandQueue.put(TempCommandQueue.size() + 1, command);
             }
         }
     }
