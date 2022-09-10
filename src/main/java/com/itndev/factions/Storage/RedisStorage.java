@@ -2,19 +2,17 @@ package com.itndev.factions.Storage;
 
 import com.itndev.factions.Utils.StaticVal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RedisStorage {
-    public static final HashMap<Integer, String> TempCommandQueue = new HashMap<>();
+    public static final List<String> TempCommandQueue = new ArrayList<>();
 
     public static void AddCommandToQueue(String command) {
         synchronized (TempCommandQueue) {
-            if(TempCommandQueue.isEmpty()) {
-                TempCommandQueue.put(1, command);
-            } else {
-                TempCommandQueue.put(TempCommandQueue.size() + 1, command);
-            }
+            TempCommandQueue.add(command);
         }
     }
 

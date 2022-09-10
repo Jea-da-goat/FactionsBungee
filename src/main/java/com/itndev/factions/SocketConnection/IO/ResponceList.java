@@ -1,5 +1,6 @@
 package com.itndev.factions.SocketConnection.IO;
 
+import com.itndev.FaxLib.Utils.Data.DataStream;
 import com.itndev.factions.SocketConnection.Client.Client;
 import com.itndev.factions.SocketConnection.StaticVal;
 import com.itndev.factions.Storage.RedisStorage;
@@ -40,11 +41,9 @@ public class ResponceList {
                 try {
                     synchronized (RedisStorage.TempCommandQueue) {
                         if(!RedisStorage.TempCommandQueue.isEmpty()) {
-                            HashMap<Integer, String> map = new HashMap<>(RedisStorage.TempCommandQueue);
+                            DataStream stream = new DataStream("BungeeCord", "BungeeCord-Forward", RedisStorage.TempCommandQueue);
                             RedisStorage.TempCommandQueue.clear();
-                            map.put(StaticVal.getServerNameArgs(), "BungeeCord");
-                            map.put(StaticVal.getDataTypeArgs(), "BungeeCord-Forward");
-                            client.update(map);
+                            client.update(stream);
                         }
                     }
 

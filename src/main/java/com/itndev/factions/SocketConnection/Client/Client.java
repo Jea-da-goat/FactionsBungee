@@ -1,5 +1,7 @@
 package com.itndev.factions.SocketConnection.Client;
 
+import com.itndev.FaxLib.Utils.Data.DataStream;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Arrays;
@@ -22,13 +24,14 @@ public class Client {
         this.run();
     }
 
-    public void update(HashMap<Integer, String> map) throws IOException {
+    public void update(DataStream stream) throws IOException {
         if(output == null) {
             System.out.println("OutputStream is Null");
             return;
         }
-        output.writeObject(map);
+        output.writeObject(stream);
         output.flush();
+        output.reset();
     }
 
     private void run() {
@@ -104,7 +107,7 @@ public class Client {
 
     public void closeAll() {
         try {
-            output.writeObject(new HashMap<String, String>());
+            output.writeObject(new DataStream());
             output.flush();
         } catch (Exception ex) {
             System.out.println("ex -< error Report");
