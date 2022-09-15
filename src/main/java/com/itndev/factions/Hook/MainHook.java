@@ -8,7 +8,7 @@ import com.itndev.factions.SocketConnection.Main;
 
 public class MainHook {
 
-    public static void Hook() {
+    public static void Hook() throws Exception {
         RegisterListener.run();
         Main.launch();
         //Redis.RedisConnect();

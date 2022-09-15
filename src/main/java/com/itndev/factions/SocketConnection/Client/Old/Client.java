@@ -1,4 +1,4 @@
-package com.itndev.factions.SocketConnection.Client;
+package com.itndev.factions.SocketConnection.Client.Old;
 
 import com.itndev.FaxLib.Utils.Data.DataStream;
 
@@ -24,14 +24,13 @@ public class Client {
         this.run();
     }
 
-    public void update(DataStream stream) throws IOException {
+    public void update(HashMap<Integer, Object> stream) throws IOException {
         if(output == null) {
             System.out.println("OutputStream is Null");
             return;
         }
         output.writeObject(stream);
         output.flush();
-        output.reset();
     }
 
     private void run() {

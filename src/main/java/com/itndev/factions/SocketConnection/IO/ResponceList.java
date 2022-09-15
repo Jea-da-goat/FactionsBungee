@@ -1,14 +1,13 @@
 package com.itndev.factions.SocketConnection.IO;
 
-import com.itndev.FaxLib.Utils.Data.DataStream;
-import com.itndev.factions.SocketConnection.Client.Client;
+import com.itndev.factions.SocketConnection.Client.Old.Client;
 import com.itndev.factions.SocketConnection.StaticVal;
 import com.itndev.factions.Storage.RedisStorage;
-import com.sun.tools.jdi.InternalEventHandler;
-import jdk.internal.misc.InnocuousThread;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ResponceList {
 
@@ -41,7 +40,11 @@ public class ResponceList {
                 try {
                     synchronized (RedisStorage.TempCommandQueue) {
                         if(!RedisStorage.TempCommandQueue.isEmpty()) {
-                            DataStream stream = new DataStream("BungeeCord", "BungeeCord-Forward", RedisStorage.TempCommandQueue);
+                            HashMap<Integer, Object> stream = new HashMap<>();
+                            stream.put(StaticVal.getServerNameArgs(), "BungeeCord");
+                            stream.put(StaticVal.getDataTypeArgs(), "BungeeCord-Forward");
+                            List<String> temp = new ArrayList<>(RedisStorage.TempCommandQueue.stream().toList());
+                            stream.put(1, temp);
                             RedisStorage.TempCommandQueue.clear();
                             client.update(stream);
                         }
