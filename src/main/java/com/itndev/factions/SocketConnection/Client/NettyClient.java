@@ -75,9 +75,6 @@ public class NettyClient {
                     }
                 }
             }).start();
-            while (!FactionsBungee.Shutdown) {
-                Thread.onSpinWait();
-            }
             /*for (;;) {
                 String line = in.readLine();
                 if (line == null) {
@@ -97,8 +94,7 @@ public class NettyClient {
 
             // Wait until all messages are flushed before closing the channel.
         } finally {
-            // The connection is closed automatically on shutdown.
-            group.shutdownGracefully();
+
         }
     }
 }
