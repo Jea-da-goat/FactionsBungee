@@ -16,14 +16,14 @@ import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 
 import java.awt.*;
+import java.util.UUID;
 
 public class BungeeListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PostLoginEvent e) {
         ProxiedPlayer p  = e.getPlayer();
-        SysUtils.onJoin(p);
-        ProxyServer.getInstance().getPlayers().forEach(pp -> pp.sendMessage(getMessage(p, true)));
+        join(p.getName(), p.getUniqueId());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -36,16 +36,25 @@ public class BungeeListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLeave(PlayerDisconnectEvent e) {
         ProxiedPlayer p = e.getPlayer();
-        SysUtils.onLeave(p);
-        ProxyServer.getInstance().getPlayers().forEach(pp -> pp.sendMessage(getMessage(p, false)));
+        leave(p.getName(), p.getUniqueId());
     }
 
-    private BaseComponent getMessage(ProxiedPlayer p, Boolean isjoin) {
+    public static void leave(String name, UUID uuid) {
+        SysUtils.onLeave(name, uuid);
+        ProxyServer.getInstance().getPlayers().forEach(pp -> pp.sendMessage(getMessage(name, false)));
+    }
+
+    public static void join(String name, UUID uuid) {
+        SysUtils.onJoin(name, uuid);
+        ProxyServer.getInstance().getPlayers().forEach(pp -> pp.sendMessage(getMessage(name, true)));
+    }
+
+    private static BaseComponent getMessage(String name, Boolean isjoin) {
         BaseComponent comp = new TextComponent();
         if(isjoin) {
-            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&r&8[&a&l+&r&8] &7" + p.getName()));
+            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&r&8[&a&l+&r&8] &7" + name));
         } else {
-            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&r&8[&c&l-&r&8] &7" + p.getName()));
+            comp.addExtra(ChatColor.translateAlternateColorCodes('&', "&r&8[&c&l-&r&8] &7" + name));
         }
         return comp;
     }
