@@ -2,7 +2,6 @@ package com.itndev.factions.RedisConnecter;
 
 import com.itndev.factions.Storage.RedisStorage;
 import com.itndev.factions.Utils.Read;
-import com.itndev.factions.Utils.StaticVal;
 
 import java.util.Collections;
 import java.util.Map;
